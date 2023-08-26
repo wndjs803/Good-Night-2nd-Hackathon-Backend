@@ -2,17 +2,11 @@ package com.example.Movie.movie.controller
 
 import com.example.Movie.movie.domain.Movie
 import com.example.Movie.movie.dto.UpdateMovieRequest
+import com.example.Movie.movie.genre.Genre
 import com.example.Movie.movie.service.movieService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.DeleteMapping
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.PutMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/movies")
@@ -44,5 +38,12 @@ class movieController(private val movieService: movieService) {
         } else {
             ResponseEntity.status(HttpStatus.NOT_FOUND).body(mapOf("message" to "Movie not found"))
         }
+    }
+
+    @GetMapping
+    fun findMoviesByGenreAndScreening(@RequestParam(required = false) genre: Genre?, @RequestParam(required = false) screening: Boolean?,): ResponseEntity<List<UpdateMovieRequest>>{
+        val findMovies = movieService.findMoviesByGenreAndScreening(genre, screening)
+
+        return ResponseEntity.ok(findMovies)
     }
 }

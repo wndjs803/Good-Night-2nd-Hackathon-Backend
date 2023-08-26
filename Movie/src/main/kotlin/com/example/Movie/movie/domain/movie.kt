@@ -2,11 +2,13 @@ package com.example.Movie.movie.domain
 
 import com.example.Movie.movie.genre.Genre
 import org.hibernate.annotations.UpdateTimestamp
+import org.hibernate.annotations.Where
 import java.time.LocalDate
 import java.time.LocalDateTime
 import javax.persistence.*
 
 @Entity
+@Where(clause = "IS_DELETED = false")
 data class Movie(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
