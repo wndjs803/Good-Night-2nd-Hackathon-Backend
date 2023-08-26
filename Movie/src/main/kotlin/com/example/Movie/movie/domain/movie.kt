@@ -1,6 +1,7 @@
 package com.example.Movie.movie.domain
 
 import com.example.Movie.movie.genre.Genre
+import org.springframework.web.bind.annotation.PathVariable
 import java.time.LocalDate
 import java.time.LocalDateTime
 import javax.persistence.*
@@ -9,11 +10,15 @@ import javax.persistence.*
 data class Movie(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
-    val title: String,
+    var title: String,
     @Enumerated(EnumType.STRING)
-    val genre: Genre,
-    val endDate: LocalDate,
-    val screening: Boolean,
+    var genre: Genre,
+    var endDate: LocalDate,
+    var isDeleted: Boolean = false,
     val createdAt: LocalDateTime = LocalDateTime.now(),
-    val updatedAt: LocalDateTime = LocalDateTime.now()
-)
+    var updatedAt: LocalDateTime = LocalDateTime.now()
+){
+    fun deleteMovie(){
+        this.isDeleted = true
+    }
+}
