@@ -4,6 +4,7 @@ import com.example.Movie.movie.domain.Movie
 import com.example.Movie.movie.dto.UpdateMovieRequest
 import com.example.Movie.movie.genre.Genre
 import com.example.Movie.movie.repository.movieRepository
+import org.springframework.data.crossstore.ChangeSetPersister
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDate
@@ -35,5 +36,18 @@ class movieService(private val movieRepository: movieRepository) {
         movieRepository.save(updateMovie)
 
         return updateMovie
+    }
+
+    fun findMovie(id: Long): UpdateMovieRequest? {
+        val movie = movieRepository.findById(id)
+        val findMovie = movie.get()
+        if (findMovie.isDeleted) return null
+        return UpdateMovieRequest(
+            title = findMovie.title,
+            genre = findMovie.genre,
+            openDate = findMovie.openDate,
+            endDate = findMovie.endDate,
+            screening = findMovie.screening
+        )
     }
 }
