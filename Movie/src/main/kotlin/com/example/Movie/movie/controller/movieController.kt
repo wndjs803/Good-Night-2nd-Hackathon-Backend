@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*
 class movieController(private val movieService: movieService) {
 
     @PostMapping
-    fun creatMovie(@RequestBody movie: Movie): ResponseEntity<Movie> {
+    fun creatMovie(@RequestBody movie: Movie): ResponseEntity<Any> {
         val createdMovie = movieService.createMovie(movie)
         return ResponseEntity.ok(createdMovie)
     }

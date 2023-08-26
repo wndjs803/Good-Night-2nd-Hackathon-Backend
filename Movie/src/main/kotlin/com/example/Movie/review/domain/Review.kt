@@ -3,6 +3,7 @@ package com.example.Movie.review.domain
 import com.example.Movie.movie.domain.Movie
 import org.hibernate.annotations.UpdateTimestamp
 import java.time.LocalDateTime
+import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
@@ -15,7 +16,8 @@ data class Review(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
     var content: String,
-    var grade: Int,
+    @Column(length = 5)
+    var grade: Float,
     @ManyToOne
     @JoinColumn(name = "MOVIE_ID")
     var movie: Movie,

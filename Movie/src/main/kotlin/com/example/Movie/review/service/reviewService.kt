@@ -29,7 +29,7 @@ class reviewService(val reviewRepository: reviewRepository, val movieRepository:
     }
 
     fun findReviews(movieTitle: String): List<createMovieResponse>{
-        val reviews = reviewRepository.findAll(Sort.by(Sort.Direction.ASC, "createdAt"))
+        val reviews = reviewRepository.findAll(Sort.by(Sort.Direction.DESC, "createdAt"))
 
         val filteredReviews = ArrayList<createMovieResponse>()
 
